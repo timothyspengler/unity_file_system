@@ -13,7 +13,7 @@ public class destroyer : MonoBehaviour
     // Global Variables
     public Transform spawnPos;
     DataNode dn; //= //this.gameObject.transform.GetComponent<DataNode>();
-
+    spawner spawn = new spawner();
     void Start() {
         dn = this.gameObject.transform.GetComponent<DataNode>();
     }
@@ -30,18 +30,32 @@ public class destroyer : MonoBehaviour
             {
                 if (hit.collider.gameObject == gameObject) 
                 {
-                    Destroy(this.gameObject);
-                    Debug.Log(dn.name + " -- " + dn.size);
 
+                    dn.PrintDirectories();
+                    spawn.SpawnNextDirectory(dn.Folders,dn.Files);
                 }
             }
         }
     }
 
+    public void DestroyAllCurrentObjects() {
+        foreach(GameObject o in Object.FindObjectsOfType<GameObject>()) {
+            if(o.tag == "Player") {
+                Destroy(o);
+
+            }
+        }
+        
+    }
+
+    public void SpawnPreviousDirectory() {
+
+    }
+
     void OnMouseOver() 
     {
-        // Display information on GUI with details
-       // Debug.Log(dn.name + " -- " + dn.size);
+        //Debug.Log(dn.FullName + " " + dn.IsDrive);
+        // testing for info
     }
 
     void OnMouseExit() 

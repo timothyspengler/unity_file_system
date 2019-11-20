@@ -11,16 +11,13 @@ using System.Linq;
 using System;
 using UnityEngine;
 
-public class DataNode : MonoBehaviour {
-    public string name;
-    public long size;
-}
 
 public class spawner : MonoBehaviour
 {
     // Global Variables
     public GameObject[] whatToSpawnPrefab;
     public Transform spawnPos;  // position of object
+    DataNode dn;
 
     // Platform Dimensions 
     int grid;
@@ -32,22 +29,11 @@ public class spawner : MonoBehaviour
     // Must skip F: Drive because it's a DVD drive and it doesn't like that
     void Start() 
     {
-        // -- PROFESSORS CODE START --
-        // Set a variable to the My Documents path.
-
-        spawnPlatform(16);
+        spawnPlatform(DriveInfo.GetDrives().Length);
         int track = 1;
         foreach (var drive in DriveInfo.GetDrives()) {
-            //Debug.Log(DriveInfo.GetDrives().Length);
-            
-            if (drive.Name != "F:\\") {
-                Debug.Log($"Drive: {drive.Name} Root: { drive.RootDirectory}");
-                SpawnObjects(drive, track++);
-                SpawnObjects(drive, track++);
-                SpawnObjects(drive, track++);
-                SpawnObjects(drive, track++); 
-                SpawnObjects(drive, track++);
-            }
+            if (drive.Name != "F:\\") 
+                SpawnDriveObjects(drive, track++);
         }
 
         // -- PROFESSORS CODE END -- 
@@ -56,13 +42,11 @@ public class spawner : MonoBehaviour
     // probably will need. 
     void Update() 
     {
-        //if (Input.GetMouseButtonDown(0)) {
-        //   SpawnObject();
-        // }
+
     }
 
     // pass Game Object and Drive information from
-    void SpawnObjects(DriveInfo drive, int index) 
+    void SpawnDriveObjects(DriveInfo drive, int index) 
     {
         int y = 1;
         //int z = -4;
@@ -84,8 +68,13 @@ public class spawner : MonoBehaviour
         // Add DataNode component and update the attributes for later usage
         gObj.AddComponent<DataNode>();
         DataNode dn = gObj.GetComponent<DataNode>();
-        dn.name = drive.Name;
-        dn.size = drive.TotalSize;
+        dn.Name = drive.Name;
+        dn.Size = drive.TotalSize;
+        dn.FullName = drive.RootDirectory.FullName;
+        dn.IsDrive = true;
+        //dn.Folders = new DirectoryInfo(dn.FullName);
+        dn.Folders = drive.RootDirectory.GetDirectories();
+        dn.Files = drive.RootDirectory.GetFiles();
     }
 
     // Generates a platform depending on the amount of items in the directory 
@@ -106,6 +95,11 @@ public class spawner : MonoBehaviour
        // platform.transform.position = new Vector3(0, 0, 0);
         //platform.transform.localScale = new Vector3(x * 2f, y, x * 2f);
 
+    }
+
+    public void SpawnNextDirectory(DirectoryInfo[] folders, FileInfo[] files) {
+        Debug.Log("we got here ");
+        Debug.Log(folders[0]);
     }
 
     /*  Function will find the closest square root to an integer 

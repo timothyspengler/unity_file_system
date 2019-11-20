@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2221614923247248067}
   - component: {fileID: 1006762783597473094}
   - component: {fileID: 7245248552450359228}
+  - component: {fileID: 251584040644015858}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Player
@@ -123,3 +124,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPos: {fileID: 0}
+--- !u!114 &251584040644015858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802076131949376645}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25143bde3cef754489348ed9d2ea00b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatToSpawnPrefab: []
+  spawnPos: {fileID: 0}
+  directorySize: 0
+  Name: 
+  FullName: 
+  Size: 0
+  IsFolder: 0
+  IsDrive: 0
+  IsSelected: 0
+  IsExpanded: 0
+  Prefab: {fileID: 2802076131949376645}

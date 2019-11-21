@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DataNode.cs" />
      <Compile Include="Assets\destroyer.cs" />
      <Compile Include="Assets\generate.cs" />
      <Compile Include="Assets\spawner.cs" />

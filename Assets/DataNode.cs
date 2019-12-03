@@ -1,5 +1,6 @@
 ﻿/*
-    Comp 585 -- GUI
+    Comp 585 -- GUI 
+    DataNode contains all relevant information about Drives, Files, and Folders.
  */
 
 using System.Collections;
@@ -12,41 +13,19 @@ public class DataNode : spawner
     public string Name;
     public string FullName;
     public long Size;
-    public bool IsFolder;
-    public bool IsDrive;
-    public bool IsSelected = false;
-    public bool IsExpanded = false;
-    public DirectoryInfo[] Folders;
-    public FileInfo[] Files;
-    public GameObject Prefab;
-
-
-
-    // Prints the folders that are contained in the Node
-    public void PrintDirectories() {
-        foreach(var i in Folders) 
-            Debug.Log(i);
-    }
-
-    // Prints the files that are contained in the Node
-    public void PrintFiles() {
-        foreach (var i in Files)
-            Debug.Log(i);
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    void Update() {
-
-    }
-
+    public bool IsFolder = false;
+    public bool IsDrive = false;
+    public bool IsSelected = false; // not used yet
+    public bool IsExpanded = false; // not used yets
+    public GameObject[] Prefab;
+    public int yPos;
+    public string PrevDirectory;
+    public Time DateCreated;
+    public Time LastModified;
+    public bool UserHasAccess; // assume its true until its not
    
-
-    // Update is called once per frame
-
+    public void Start() {
+        // Needs to be here or will use spawner's Start()
+        // Do nothing tho
+    }
 }

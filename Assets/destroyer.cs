@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using UnityEngine.UI;
 
 public class destroyer : MonoBehaviour 
 {
@@ -16,13 +16,26 @@ public class destroyer : MonoBehaviour
     public Transform spawnPos;
     private Renderer render;
     private Color normalColor;
+
+    //Navigation
+    public Text txtNode;
+    public Text txtName;
+    public bool detailed;
+
     DataNode dn;
+
 
     void Start() {
         dn = this.gameObject.transform.GetComponent<DataNode>();
         render = GetComponent<Renderer>();
 
         normalColor = render.material.color;
+        /* nav = gameObject.GetComponent<Navigation>();
+         nav.txtNode.text = "";
+         nav.txtName.text = "";*/
+        txtNode.text = "Directory:";
+        txtName.text = "Name";
+        detailed = false;
     }
 
     // Update is called once per frame
@@ -51,7 +64,7 @@ public class destroyer : MonoBehaviour
                             // Spawn Files
                             foreach (var file in dirs.EnumerateFiles()) 
                                 dn.SpawnFileObjects(file, index++, dn.Prefab[0], dn.yPos, dn.FullName);
-    
+
                             DestroyPreviousDirectory(dn.yPos);
                             //}
                         }
@@ -69,7 +82,9 @@ public class destroyer : MonoBehaviour
 
     // On hover Display to Panel information about Object
     void OnMouseOver() {
+        txtNode.text = $"Directory: {dn.FullName}";
         render.material.color = Color.magenta; // user has access
+
     }
 
     // Destroys objects based on Y Position 

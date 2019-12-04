@@ -67,7 +67,6 @@
     <Compile Include="Assets\destroyer.cs" />
     <Compile Include="Assets\generate.cs" />
     <Compile Include="Assets\MoveCamera.cs" />
-    <Compile Include="Assets\Navigation.cs" />
     <Compile Include="Assets\spawner.cs" />
     <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
     <Reference Include="Unity.Timeline.Editor">

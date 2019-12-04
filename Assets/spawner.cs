@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System;
 using UnityEngine;
+using TMPro;
 using System.Security.AccessControl;
 
 
@@ -21,6 +22,7 @@ public class spawner : MonoBehaviour
 {
     public GameObject[] whatToSpawnPrefab; // Set in Unity IDE
     public Transform spawnPos;  // position of object
+    public TextMeshProUGUI txtNode;
 
     // Variables for Platform Dimensions 
     public float myXPos;    // tracks X position when spawning
@@ -55,8 +57,8 @@ public class spawner : MonoBehaviour
         // Add DataNode component and update the attributes for later usage
         gObj.name = drive.Name;
         gObj.GetComponentInChildren<TextMesh>().text = drive.Name;
-        gObj.AddComponent<DataNode>();
-        gObj.AddComponent<spawner>();
+        //gObj.AddComponent<DataNode>();
+        //gObj.AddComponent<spawner>();
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = drive.Name;
         dn.Size = drive.TotalSize;
@@ -67,10 +69,11 @@ public class spawner : MonoBehaviour
         dn.Prefab = whatToSpawnPrefab;
         dn.yPos = y;
         dn.UserHasAccess = true;
+        dn.txtNode = txtNode;
     }
 
     // Sets and spawns all folder game objects
-    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, string prevDirectory) {
+    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
         Debug.Log("FolderSpawnObject - "+dir.FullName);
         Debug.Log(dir.FullName);
         int y = ToggleY(oldY);
@@ -86,7 +89,7 @@ public class spawner : MonoBehaviour
         // Add DataNode component and update the attributes for later usage
         gObj.name = dir.Name;
         gObj.GetComponentInChildren<TextMesh>().text = ShortenString(dir.Name, 14); 
-        gObj.AddComponent<DataNode>();
+        //gObj.AddComponent<DataNode>();
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = dir.Name;
         dn.FullName = dir.FullName;
@@ -97,10 +100,11 @@ public class spawner : MonoBehaviour
         dn.PrevDirectory = prevDirectory;
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
+        dn.txtNode = txtName;
     }
 
     // Sets and spawns all file game objects
-    public void SpawnFileObjects(FileInfo file, int index, GameObject Prefab, int oldY, string prevDirectory) {
+    public void SpawnFileObjects(FileInfo file, int index, GameObject Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
         Debug.Log("FileSpawnObject - " + file.FullName);
         int y = ToggleY(oldY) ;
         var gObj = Instantiate(Prefab, new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
@@ -114,6 +118,8 @@ public class spawner : MonoBehaviour
 
         // Add DataNode component and update the attributes for later usage
         gObj.name = file.Name;
+        gObj.GetComponentInChildren<TextMeshProUGUI>().text = file.Name;
+
         //gObj.GetComponentInChildren<TextMesh>().text = dir.Name;
         gObj.AddComponent<DataNode>();
    
@@ -126,7 +132,8 @@ public class spawner : MonoBehaviour
         dn.spawnPos = spawnPos;
         dn.yPos = y;
         dn.PrevDirectory = prevDirectory;
-        dn.UserHasAccess = true; 
+        dn.UserHasAccess = true;
+        dn.txtNode = txtName;
     }
 
     // Generates a platform depending on the amount of items in the directory 

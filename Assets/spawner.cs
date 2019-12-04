@@ -15,10 +15,12 @@ using System.Linq;
 using System;
 using UnityEngine;
 using System.Security.AccessControl;
-
+using UnityEngine.UI;
 
 public class spawner : MonoBehaviour
 {
+    public Text txtNode;
+    public Text txtName;
     public GameObject[] whatToSpawnPrefab; // Set in Unity IDE
     public Transform spawnPos;  // position of object
 
@@ -29,6 +31,8 @@ public class spawner : MonoBehaviour
     float maxLength;        // set in SetSpawnDimensions
 
     void Start() {
+        txtNode.text = "n";
+        txtName.text = "N";
         SetSpawnDimensions(DriveInfo.GetDrives().Length);
         int track = 1;
         foreach (var drive in DriveInfo.GetDrives()) {
@@ -66,6 +70,7 @@ public class spawner : MonoBehaviour
         dn.Prefab = whatToSpawnPrefab;
         dn.yPos = y;
         dn.UserHasAccess = true;
+
     }
 
     // Sets and spawns all folder game objects
@@ -96,11 +101,15 @@ public class spawner : MonoBehaviour
         dn.PrevDirectory = prevDirectory;
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
+        txtName.text = "folder";
+
+
     }
 
     // Sets and spawns all file game objects
     public void SpawnFileObjects(FileInfo file, int index, GameObject Prefab, int oldY, string prevDirectory) {
         Debug.Log("FileSpawnObject - " + file.FullName);
+        txtName.text = file.FullName;
         int y = ToggleY(oldY) ;
         var gObj = Instantiate(Prefab, new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     

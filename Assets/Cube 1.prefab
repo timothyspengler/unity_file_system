@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b31caf32c176954eb352433a6e2b95e, type: 2}
+  - {fileID: 2100000, guid: 429d43540d544af4aac99ab34f50ba48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,6 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPos: {fileID: 0}
+  txtNode: {fileID: 0}
+  txtName: {fileID: 0}
+  detailed: 0
 --- !u!54 &-6018156603528030731
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -138,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatToSpawnPrefab: []
   spawnPos: {fileID: 0}
+  txtNode: {fileID: 0}
   myXPos: 0
   Name: 
   FullName: 
@@ -146,6 +150,9 @@ MonoBehaviour:
   IsDrive: 0
   IsSelected: 0
   IsExpanded: 0
-  Prefab: {fileID: 8713614357287224318}
+  Prefab:
+  - {fileID: 0}
   yPos: 0
   PrevDirectory: 
+  UserHasAccess: 0
+  txtNode: {fileID: 0}

@@ -75,10 +75,10 @@ public class destroyer : MonoBehaviour
                        
                         }
                     }
-                    }
                 }
             }
         }
+    }
     
 
     // On hover Display to Panel information about Object
@@ -92,9 +92,8 @@ public class destroyer : MonoBehaviour
     private void DestroyPreviousDirectory(int y) {
         GameObject[] previous = GameObject.FindGameObjectsWithTag("Player"); 
         foreach(var prev in previous) {
-            if(prev.transform.position.y == y) {
+            if(prev.transform.position.y == y) 
                 Destroy(prev);
-            }
         }                     
     }
 

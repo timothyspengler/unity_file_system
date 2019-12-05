@@ -25,7 +25,6 @@ public class DataNode : spawner
     public Time LastModified;
     public bool UserHasAccess; // assume its true until its not
     //public spawner Spawn;
-    public TextMeshProUGUI txtNode;
 
     public void Start() {
         // Needs to be here or will use spawner's Start()

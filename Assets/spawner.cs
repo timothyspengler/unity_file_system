@@ -56,8 +56,8 @@ public class spawner : MonoBehaviour
 
         // Add DataNode component and update the attributes for later usage
         gObj.name = drive.Name;
-        gObj.GetComponentInChildren<TextMesh>().text = drive.Name;
-        //gObj.AddComponent<DataNode>();
+        gObj.GetComponentInChildren<TextMeshProUGUI>().text = drive.Name;
+        gObj.AddComponent<DataNode>();
         //gObj.AddComponent<spawner>();
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = drive.Name;
@@ -74,12 +74,11 @@ public class spawner : MonoBehaviour
 
     // Sets and spawns all folder game objects
     public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
-        Debug.Log("FolderSpawnObject - "+dir.FullName);
-        Debug.Log(dir.FullName);
-        int y = ToggleY(oldY);
-        var gObj =Instantiate(Prefab[2], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
       
-        myXPos += 2;
+        int y = ToggleY(oldY);
+        var gObj =Instantiate(Prefab[1], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
+      
+        myXPos += 3;
         // reset x and change z position
         if ((index) % maxLength == 0) {
             myXPos = staticX;
@@ -88,8 +87,8 @@ public class spawner : MonoBehaviour
 
         // Add DataNode component and update the attributes for later usage
         gObj.name = dir.Name;
-        gObj.GetComponentInChildren<TextMesh>().text = ShortenString(dir.Name, 14); 
-        //gObj.AddComponent<DataNode>();
+        gObj.GetComponentInChildren<TextMeshProUGUI>().text = dir.Name; 
+        gObj.AddComponent<DataNode>();
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = dir.Name;
         dn.FullName = dir.FullName;
@@ -109,7 +108,7 @@ public class spawner : MonoBehaviour
         int y = ToggleY(oldY) ;
         var gObj = Instantiate(Prefab, new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     
-        myXPos += 2;
+        myXPos += 3;
         // reset x and change z position
         if ((index) % maxLength == 0) {
             myXPos = staticX;
@@ -136,7 +135,7 @@ public class spawner : MonoBehaviour
         dn.txtNode = txtName;
     }
 
-    // Generates a platform depending on the amount of items in the directory 
+    // Generates a Grid depending on the amount of items in the directory 
     public void SetSpawnDimensions(int length) {
         float x = FindNearestSquare(length);
         float z = x;

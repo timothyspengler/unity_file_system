@@ -19,7 +19,7 @@ public class destroyer : MonoBehaviour
     private Color normalColor;
 
     //Navigation
-    public TextMeshProUGUI txtNode
+    public TextMeshProUGUI txtNode;
     public Text txtName;
     public bool detailed;
 

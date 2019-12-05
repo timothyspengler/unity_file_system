@@ -8,7 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using UnityEngine.UI;
+using TMPro;
 
 public class destroyer : MonoBehaviour 
 {
@@ -16,13 +17,27 @@ public class destroyer : MonoBehaviour
     public Transform spawnPos;
     private Renderer render;
     private Color normalColor;
+
+    //Navigation
+    public TextMeshProUGUI txtNode;
+    public Text txtName;
+    public bool detailed;
+    public 
+
     DataNode dn;
+
 
     void Start() {
         dn = this.gameObject.transform.GetComponent<DataNode>();
         render = GetComponent<Renderer>();
-
         normalColor = render.material.color;
+        txtNode = dn.txtNode;
+        /* nav = gameObject.GetComponent<Navigation>();
+         nav.txtNode.text = "";
+         nav.txtName.text = "";*/
+        //txtNode.text = "Directory:";
+        //txtName.text = "Name";
+        detailed = false;
     }
 
     // Update is called once per frame
@@ -46,12 +61,12 @@ public class destroyer : MonoBehaviour
 
                             // Spawn Folders
                             foreach (var dir in dirs.EnumerateDirectories()) 
-                                dn.SpawnFolderObjects(dir, index++, dn.Prefab, dn.yPos, dn.FullName);
+                                dn.SpawnFolderObjects(dir, index++, dn.Prefab, dn.yPos, dn.FullName, dn.txtNode);
                             
                             // Spawn Files
                             foreach (var file in dirs.EnumerateFiles()) 
-                                dn.SpawnFileObjects(file, index++, dn.Prefab[0], dn.yPos, dn.FullName);
-    
+                                dn.SpawnFileObjects(file, index++, dn.Prefab[0], dn.yPos, dn.FullName, dn.txtNode);
+
                             DestroyPreviousDirectory(dn.yPos);
                             //}
                         }
@@ -69,7 +84,9 @@ public class destroyer : MonoBehaviour
 
     // On hover Display to Panel information about Object
     void OnMouseOver() {
+        //txtNode.text = $"Directory: {dn.FullName}";
         render.material.color = Color.magenta; // user has access
+        txtNode.text = dn.Name;
     }
 
     // Destroys objects based on Y Position 

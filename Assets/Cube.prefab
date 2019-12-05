@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 8250256526083545238}
   - component: {fileID: 8250256526083545241}
   - component: {fileID: 8250256526083545240}
-  - component: {fileID: 8250256526083545243}
+  - component: {fileID: 5600942525302354611}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player
@@ -200,20 +200,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPos: {fileID: 0}
---- !u!114 &8250256526083545243
+  txtNode: {fileID: 0}
+  txtName: {fileID: 0}
+  detailed: 0
+  dn: {fileID: 0}
+--- !u!114 &5600942525302354611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8250256526083545242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25143bde3cef754489348ed9d2ea00b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatToSpawnPrefab: []
   spawnPos: {fileID: 0}
+  txtNode: {fileID: 0}
   myXPos: 0
   Name: 
   FullName: 
@@ -225,3 +230,5 @@ MonoBehaviour:
   Prefab: []
   yPos: 0
   PrevDirectory: 
+  UserHasAccess: 0
+  Spawn: {fileID: 0}

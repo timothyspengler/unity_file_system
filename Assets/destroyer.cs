@@ -22,7 +22,6 @@ public class destroyer : MonoBehaviour
     public TextMeshProUGUI txtNode;
     public Text txtName;
     public bool detailed;
-    public 
 
     DataNode dn;
 

@@ -73,7 +73,7 @@ public class spawner : MonoBehaviour
     }
 
     // Sets and spawns all folder game objects
-    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
+    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) {
       
         int y = ToggleY(oldY);
         var gObj =Instantiate(Prefab[1], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
@@ -96,15 +96,13 @@ public class spawner : MonoBehaviour
         dn.IsFolder = true;
         dn.spawnPos = spawnPos;
         dn.yPos = y;
-        dn.PrevDirectory = prevDirectory;
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
     }
 
     // Sets and spawns all file game objects
-    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
-        //Debug.Log("FileSpawnObject - " + file.FullName);
+    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) {
         int y = ToggleY(oldY);
         var gObj = Instantiate(Prefab[0], new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     
@@ -126,11 +124,12 @@ public class spawner : MonoBehaviour
         dn.Name = file.Name;
         dn.Size = file.Length;
         dn.FullName = file.FullName;
+        dn.Prefab = Prefab;
         dn.IsDrive = false;
         dn.IsFolder = false;
         dn.spawnPos = spawnPos;
         dn.yPos = y;
-        dn.PrevDirectory = prevDirectory;
+        dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
     }

@@ -20,7 +20,6 @@ public class DataNode : spawner
     public bool IsExpanded = false; // not used yets
     public GameObject[] Prefab;
     public int yPos;
-    public string PrevDirectory;
     public Time DateCreated;
     public Time LastModified;
     public bool UserHasAccess; // assume its true until its not

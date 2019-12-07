@@ -59,8 +59,8 @@
   <ItemGroup>
     <Compile Include="Assets\DataNode.cs" />
     <Compile Include="Assets\destroyer.cs" />
-    <Compile Include="Assets\generate.cs" />
     <Compile Include="Assets\MoveCamera.cs" />
+    <Compile Include="Assets\PreviousDirectory.cs" />
     <Compile Include="Assets\spawner.cs" />
     <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

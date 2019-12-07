@@ -31,7 +31,7 @@ public class spawner : MonoBehaviour
     float maxLength;        // set in SetSpawnDimensions
 
     void Start() {
-
+        Debug.Log("start spawn");
         SetSpawnDimensions(DriveInfo.GetDrives().Length);
         int track = 1;
         foreach (var drive in DriveInfo.GetDrives()) {
@@ -86,7 +86,7 @@ public class spawner : MonoBehaviour
         }
 
         // Add DataNode component and update the attributes for later usage
-        gObj.name = dir.Name;
+        gObj.name = dir.FullName;
         gObj.GetComponentInChildren<TextMeshProUGUI>().text = dir.Name; 
         gObj.AddComponent<DataNode>();
         DataNode dn = gObj.GetComponent<DataNode>();
@@ -103,10 +103,10 @@ public class spawner : MonoBehaviour
     }
 
     // Sets and spawns all file game objects
-    public void SpawnFileObjects(FileInfo file, int index, GameObject Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
-        Debug.Log("FileSpawnObject - " + file.FullName);
-        int y = ToggleY(oldY) ;
-        var gObj = Instantiate(Prefab, new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
+    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, string prevDirectory, TextMeshProUGUI txtName) {
+        //Debug.Log("FileSpawnObject - " + file.FullName);
+        int y = ToggleY(oldY);
+        var gObj = Instantiate(Prefab[0], new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     
         myXPos += 3;
         // reset x and change z position
@@ -116,7 +116,7 @@ public class spawner : MonoBehaviour
         }
 
         // Add DataNode component and update the attributes for later usage
-        gObj.name = file.Name;
+        gObj.name = file.FullName;
         gObj.GetComponentInChildren<TextMeshProUGUI>().text = file.Name;
 
         //gObj.GetComponentInChildren<TextMesh>().text = dir.Name;
@@ -157,8 +157,8 @@ public class spawner : MonoBehaviour
         while ((square +  odd) <= n) {
                 square += odd;
                 odd += 2;
-      
         }
+
         return Convert.ToInt32(Math.Sqrt(square));
     }
 
@@ -180,6 +180,4 @@ public class spawner : MonoBehaviour
         return name.Length <= max ? name : name.Substring(0, max) + "...";
     }
 
-   
- 
 } // end class

@@ -52,7 +52,7 @@ public class destroyer : MonoBehaviour
                         try {
                             DirectoryInfo dirs = new DirectoryInfo(dn.FullName);
                             int totalItems = dirs.GetDirectories().Length + dirs.GetFiles().Length;
-                            dn.SetSpawnDimensions(totalItems);
+                            //dn.SetSpawnDimensions(totalItems);
 
                             //if (totalItems > 0) {
                             dn.SetSpawnDimensions(totalItems);
@@ -64,7 +64,7 @@ public class destroyer : MonoBehaviour
                             
                             // Spawn Files
                             foreach (var file in dirs.EnumerateFiles()) 
-                                dn.SpawnFileObjects(file, index++, dn.Prefab[0], dn.yPos, dn.FullName, dn.txtNode);
+                                dn.SpawnFileObjects(file, index++, dn.Prefab, dn.yPos, dn.FullName, dn.txtNode);
 
                             DestroyPreviousDirectory(dn.yPos);
                             //}
@@ -95,11 +95,6 @@ public class destroyer : MonoBehaviour
             if(prev.transform.position.y == y) 
                 Destroy(prev);
         }                     
-    }
-
-    
-    public void SpawnPreviousDirectory() {
-
     }
 
     private bool CheckAuthorization() {

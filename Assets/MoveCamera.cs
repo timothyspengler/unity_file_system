@@ -7,11 +7,13 @@ public class MoveCamera : MonoBehaviour
     // how fast you move
     private int movementspeed;
 
-    void Start() {
+    void Start() 
+    {
         movementspeed = 25;
     }
 
-    void Update() {
+    void Update() 
+    {
         // move left
         if (Input.GetKey(KeyCode.LeftArrow))
             transform.Translate(Vector3.left * movementspeed * Time.deltaTime);
@@ -40,7 +42,7 @@ public class MoveCamera : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * 90f);
 
-        // rotate left
+        //rotate left
         if (Input.GetKey(KeyCode.Q))
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * -90f);
 

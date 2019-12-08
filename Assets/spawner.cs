@@ -30,11 +30,12 @@ public class spawner : MonoBehaviour
     float myZPos;           // tracks Y position when spawning
     float maxLength;        // set in SetSpawnDimensions
 
-    void Start() {
-        Debug.Log("start spawn");
+    void Start() 
+    {
         SetSpawnDimensions(DriveInfo.GetDrives().Length);
         int track = 1;
-        foreach (var drive in DriveInfo.GetDrives()) {
+        foreach (var drive in DriveInfo.GetDrives()) 
+        {
             // Must skip F: Drive because it's a DVD drive and Tim's computer doesn't like that
             if (drive.Name != "F:\\") 
                 SpawnDriveObjects(drive, track++);
@@ -42,7 +43,8 @@ public class spawner : MonoBehaviour
     }
 
     // pass Game Object and Drive information
-   public void SpawnDriveObjects(DriveInfo drive, int index) {
+   public void SpawnDriveObjects(DriveInfo drive, int index) 
+   {
         int y = 1;
         GameObject gObj = Instantiate(whatToSpawnPrefab[2], new Vector3(myXPos, y, myZPos), Quaternion.identity) as GameObject;
         myXPos += 2; 
@@ -58,12 +60,11 @@ public class spawner : MonoBehaviour
         gObj.name = drive.Name;
         gObj.GetComponentInChildren<TextMeshProUGUI>().text = drive.Name;
         gObj.AddComponent<DataNode>();
-        //gObj.AddComponent<spawner>();
+
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = drive.Name;
         dn.Size = drive.TotalSize;
         dn.FullName = drive.RootDirectory.FullName;
-        dn.IsDrive = true;
         dn.IsFolder = true;
         dn.spawnPos = spawnPos;
         dn.Prefab = whatToSpawnPrefab;
@@ -73,14 +74,16 @@ public class spawner : MonoBehaviour
     }
 
     // Sets and spawns all folder game objects
-    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) {
+    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) 
+    {
       
         int y = ToggleY(oldY);
         var gObj =Instantiate(Prefab[1], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
       
         myXPos += 3;
         // reset x and change z position
-        if ((index) % maxLength == 0) {
+        if ((index) % maxLength == 0) 
+        {
             myXPos = staticX;
             myZPos += 2;
         }
@@ -92,13 +95,14 @@ public class spawner : MonoBehaviour
         DataNode dn = gObj.GetComponent<DataNode>();
         dn.Name = dir.Name;
         dn.FullName = dir.FullName;
-        dn.IsDrive = false;
         dn.IsFolder = true;
         dn.spawnPos = spawnPos;
         dn.yPos = y;
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.DateCreated = dir.CreationTime;
+        dn.LastModified = dir.LastWriteTime;
     }
 
     // Sets and spawns all file game objects
@@ -116,8 +120,6 @@ public class spawner : MonoBehaviour
         // Add DataNode component and update the attributes for later usage
         gObj.name = file.FullName;
         gObj.GetComponentInChildren<TextMeshProUGUI>().text = file.Name;
-
-        //gObj.GetComponentInChildren<TextMesh>().text = dir.Name;
         gObj.AddComponent<DataNode>();
    
         DataNode dn = gObj.GetComponent<DataNode>();
@@ -125,35 +127,44 @@ public class spawner : MonoBehaviour
         dn.Size = file.Length;
         dn.FullName = file.FullName;
         dn.Prefab = Prefab;
-        dn.IsDrive = false;
         dn.IsFolder = false;
         dn.spawnPos = spawnPos;
         dn.yPos = y;
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.DateCreated = file.CreationTime;
+        dn.LastModified = file.LastWriteTime;
     }
 
     // Generates a Grid depending on the amount of items in the directory 
-    public void SetSpawnDimensions(int length) {
+    public void SetSpawnDimensions(int length) 
+    {
         float x = FindNearestSquare(length);
         float z = x;
-        
+
         // Set global variables
         myXPos = (x / -2) * 1f;
         maxLength = (x * 1f) ;    
         staticX = myXPos;       
         myZPos = (x / -2) ;      
+
+        GameObject getCamera = GameObject.Find("Main Camera");
+        Vector3 cameraPosition = new Vector3(x / 1.5f, 8, -12); // adjust camera
+        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
+        GameObject.Find("Cache").GetComponent<Cache>().SetCameraPosition(cameraPosition);
     }
 
     /*  Function will find the closest square root to an integer 
         that is less than or equal to n
     */
-    private int FindNearestSquare(int n) {
+    private int FindNearestSquare(int n) 
+    {
         int square = 4; //smallest square we will use
         int odd = 5;
 
-        while ((square +  odd) <= n) {
+        while ((square +  odd) <= n) 
+        {
                 square += odd;
                 odd += 2;
         }
@@ -165,18 +176,14 @@ public class spawner : MonoBehaviour
         alternate when moving directories to know which game objects
         to remove from display. 
     */
-    private int ToggleY(int y) {
+    private int ToggleY(int y) 
+    {
         if(y == 1)
             y = 2;
         else
             y = 1;
 
         return y;
-    }
-
-    // Shortens names if longer than the max number of characters
-    private string ShortenString(string name, int max) {
-        return name.Length <= max ? name : name.Substring(0, max) + "...";
     }
 
 } // end class

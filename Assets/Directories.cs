@@ -20,6 +20,7 @@ public class Directories : MonoBehaviour
 
     DataNode dn;
     DataNode cache; // saves previous directory in case we get lost (empty directory)
+    DataNode driveCache;
 
     void Start() 
     {
@@ -28,6 +29,7 @@ public class Directories : MonoBehaviour
         normalColor = render.material.color;
         txtNode = dn.txtNode;
         cache = GameObject.Find("Cache").GetComponent<DataNode>();
+        driveCache = GameObject.Find("DriveCache").GetComponent<DataNode>();
         detailed = false;
     }
 
@@ -61,12 +63,20 @@ public class Directories : MonoBehaviour
                             foreach (var file in dirs.EnumerateFiles())
                                 dn.SpawnFileObjects(file, index++, dn.Prefab, dn.yPos, dn.txtNode);
 
-                            // Cache previous directory
-                            cache.Prefab = dn.Prefab;
-                            cache.yPos = dn.yPos;
-                            cache.txtNode = dn.txtNode;
-                            cache.FullName = dn.FullName;
-                            cache.Name = dn.Name;
+                            if (this.dn.IsDrive)
+                            {
+                                driveCache.FullName = dn.FullName;
+                            }
+                            
+                       
+                                // Cache previous directory
+                                cache.Prefab = dn.Prefab;
+                                cache.yPos = dn.yPos;
+                                cache.txtNode = dn.txtNode;
+                                cache.FullName = dn.FullName;
+                                cache.Name = dn.Name;
+                            
+                     
 
                             GameObject directTxt = GameObject.Find("DirectoryText");
                             directTxt.GetComponent<TextMeshProUGUI>().text = "Location: " + dn.Name;
@@ -195,36 +205,91 @@ public class Directories : MonoBehaviour
     // Slices String to previous forward slash
     private string FormatDirectoryName(string name) 
     {
-        int index;
+        try // try for windows
+        {
+            int index;
 
-        index = name.LastIndexOf(@"\");
-        name = name.Substring(0, index);
+            index = name.LastIndexOf(@"\");
+            name = name.Substring(0, index);
 
-        // check if it's drive directory
-        if (name[name.Length - 1].ToString() == ":") 
-            return ""; // set length to zero 
-        
-        index = name.LastIndexOf(@"\");
-        name = name.Substring(0, index);
+            // check if it's drive directory
+            if (name[name.Length - 1].ToString() == ":")
+                return ""; // set length to zero 
 
-        // Check if it's a drive directory again
-        if (name[name.Length - 1].ToString() == ":") 
-            name += @"\"; // add back the slash
+            index = name.LastIndexOf(@"\");
+            name = name.Substring(0, index);
 
-        return name;
+            // Check if it's a drive directory again
+            if (name[name.Length - 1].ToString() == ":")
+                name += @"\"; // add back the slash
+
+            return name;
+        }
+        catch (ArgumentOutOfRangeException) // its a mac computer
+        {
+            string Drivecache = GameObject.Find("DriveCache").GetComponent<DataNode>().FullName;
+
+            int index;
+            index = name.LastIndexOf(@"/");
+
+            if(index != 0)
+            {
+                name = name.Substring(0, index);
+
+                if(name == Drivecache)
+                    return "";
+
+                index = name.LastIndexOf(@"/");
+                if (index != 0)
+                    name = name.Substring(0, index);
+                else
+                    name = Drivecache;
+                
+                return name;
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 
     // only have to go back one slash from empty directory
     private string EmptyDirectoryStepBackName(string name) 
     {
-        int index = name.LastIndexOf(@"\");
-        name = name.Substring(0, index);
 
-        // Check if it's a drive directory again
-        if (name[name.Length - 1].ToString() == ":")
-            name += @"\"; // add back the slash
+        try //assume its windows
+        {
+            int index = name.LastIndexOf(@"\");
+            name = name.Substring(0, index);
 
-        return name;
+            // Check if it's a drive directory again
+            if (name[name.Length - 1].ToString() == ":")
+                name += @"\"; // add back the slash
+
+            return name;
+        }
+        catch (ArgumentOutOfRangeException) // its a mac
+        {
+            string Drivecache = GameObject.Find("DriveCache").GetComponent<DataNode>().FullName;
+
+            if (name != Drivecache)
+            {
+                int index = name.LastIndexOf(@"/");
+                if (index != 0)
+                    name = name.Substring(0, index);
+                else
+                    name = Drivecache;
+
+                return name;
+            }
+            else
+            {
+                return "";
+            }
+        
+        }
+        
     }
 
     void OnMouseExit() 

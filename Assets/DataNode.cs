@@ -12,6 +12,7 @@ public class DataNode : spawner
     public string FullName;
     public long Size;
     public bool IsFolder;
+    public bool IsDrive;
     public bool IsSelected; // not used yet
     public bool IsExpanded; // not used yets
     public GameObject[] Prefab;

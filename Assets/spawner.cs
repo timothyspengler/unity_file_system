@@ -71,6 +71,7 @@ public class spawner : MonoBehaviour
         dn.yPos = y;
         dn.UserHasAccess = true;
         dn.txtNode = txtNode;
+        dn.IsDrive = true;
     }
 
     // Sets and spawns all folder game objects

@@ -872,6 +872,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbfb3d7c3d2b014698bded1a464d2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatToSpawnPrefab: []
+  spawnPos: {fileID: 0}
+  txtNode: {fileID: 0}
+  myXPos: 0
+  Name: 
+  FullName: 
+  Size: 0
+  IsFolder: 0
+  IsDrive: 0
+  IsSelected: 0
+  IsExpanded: 0
+  Prefab: []
+  yPos: 0
+  UserHasAccess: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,6 +1451,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100849729}
   m_CullTransparentMesh: 0
+--- !u!1 &1328992066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328992067}
+  - component: {fileID: 1328992068}
+  m_Layer: 0
+  m_Name: DriveCache
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1328992067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328992066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 509.13577, y: 713.6885, z: 45.254974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1328992068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328992066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbfb3d7c3d2b014698bded1a464d2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatToSpawnPrefab: []
+  spawnPos: {fileID: 0}
+  txtNode: {fileID: 0}
+  myXPos: 0
+  Name: 
+  FullName: 
+  Size: 0
+  IsFolder: 0
+  IsDrive: 0
+  IsSelected: 0
+  IsExpanded: 0
+  Prefab: []
+  yPos: 0
+  UserHasAccess: 0
 --- !u!1 &1480814808
 GameObject:
   m_ObjectHideFlags: 0

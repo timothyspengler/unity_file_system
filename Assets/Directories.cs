@@ -104,13 +104,25 @@ public class Directories : MonoBehaviour
     {
         render.material.color = Color.magenta; // user has access
         txtNode.text = dn.Name;
-        String type = (dn.IsDrive ? "Drive" : dn.IsFolder ? "Folder" : "File");
-        txtNodeDetailed.text = "Type:" + type + "\n"
-            + "Location:" + dn.FullName + "\n" 
-            + "Size:" + dn.Size + "\n"
-            + "Created" + dn.DateCreated + "\n"
-            + "Modified" + dn.LastModified
-          ;
+
+        if(dn.IsDrive)
+        {
+            txtNodeDetailed.text = "Type: Drive"  + "\n"
+           + "Location:" + dn.FullName + "\n"
+           + "Size:" + dn.Size + "\n"
+         ;
+        }
+        else
+        {
+            String type = (dn.IsFolder ? "Folder" : "File");
+            txtNodeDetailed.text = "Type:" + type + "\n"
+                + "Location:" + dn.FullName + "\n"
+                + "Size:" + dn.Size + "\n"
+                + "Created" + dn.DateCreated + "\n"
+                + "Modified" + dn.LastModified
+              ;
+        }
+        
     }
 
     // Destroys objects based on Y Position 

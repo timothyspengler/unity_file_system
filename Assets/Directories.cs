@@ -115,11 +115,11 @@ public class Directories : MonoBehaviour
         else
         {
             String type = (dn.IsFolder ? "Folder" : "File");
-            txtNodeDetailed.text = "Type:" + type + "\n"
-                + "Location:" + dn.FullName + "\n"
-                + "Size:" + dn.Size + "\n"
-                + "Created" + dn.DateCreated + "\n"
-                + "Modified" + dn.LastModified
+            txtNodeDetailed.text = "Type: " + type + "\n"
+                + "Location: " + dn.FullName + "\n"
+                + "Size: " + dn.Size + "\n"
+                + "Created: " + dn.DateCreated + "\n"
+                + "Modified: " + dn.LastModified
               ;
         }
         

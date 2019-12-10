@@ -65,10 +65,12 @@
   <ItemGroup>
     <Compile Include="Assets\Cache.cs" />
     <Compile Include="Assets\DataNode.cs" />
+    <Compile Include="Assets\DetailNavPanel.cs" />
     <Compile Include="Assets\Directories.cs" />
     <Compile Include="Assets\MoveCamera.cs" />
     <Compile Include="Assets\spawner.cs" />
     <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
+    <Compile Include="Assets\ToggleSwitch.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

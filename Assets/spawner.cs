@@ -23,6 +23,8 @@ public class spawner : MonoBehaviour
     public GameObject[] whatToSpawnPrefab; // Set in Unity IDE
     public Transform spawnPos;  // position of object
     public TextMeshProUGUI txtNode;
+    public TextMeshProUGUI txtNodeDetailed;
+
 
     // Variables for Platform Dimensions 
     public float myXPos;    // tracks X position when spawning
@@ -71,11 +73,12 @@ public class spawner : MonoBehaviour
         dn.yPos = y;
         dn.UserHasAccess = true;
         dn.txtNode = txtNode;
+        dn.txtNodeDetailed = txtNodeDetailed;
         dn.IsDrive = true;
     }
 
     // Sets and spawns all folder game objects
-    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) 
+    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName, TextMeshProUGUI txtNameDetailed) 
     {
       
         int y = ToggleY(oldY);
@@ -102,12 +105,13 @@ public class spawner : MonoBehaviour
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.txtNodeDetailed = txtNameDetailed;
         dn.DateCreated = dir.CreationTime;
         dn.LastModified = dir.LastWriteTime;
     }
 
     // Sets and spawns all file game objects
-    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) {
+    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName, TextMeshProUGUI txtNameDetailed) {
         int y = ToggleY(oldY);
         var gObj = Instantiate(Prefab[0], new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     
@@ -134,6 +138,7 @@ public class spawner : MonoBehaviour
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.txtNodeDetailed = txtNameDetailed;
         dn.DateCreated = file.CreationTime;
         dn.LastModified = file.LastWriteTime;
     }

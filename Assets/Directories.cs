@@ -15,6 +15,7 @@ public class Directories : MonoBehaviour
 
     //Navigation
     public TextMeshProUGUI txtNode;
+    public TextMeshProUGUI txtNodeDetailed;
     public Text txtName;
     public bool detailed;
 
@@ -28,6 +29,7 @@ public class Directories : MonoBehaviour
         render = GetComponent<Renderer>();
         normalColor = render.material.color;
         txtNode = dn.txtNode;
+        txtNodeDetailed = dn.txtNodeDetailed;
         cache = GameObject.Find("Cache").GetComponent<DataNode>();
         driveCache = GameObject.Find("DriveCache").GetComponent<DataNode>();
         detailed = false;
@@ -57,11 +59,11 @@ public class Directories : MonoBehaviour
 
                             // Spawn Folders
                             foreach (var dir in dirs.EnumerateDirectories())
-                                dn.SpawnFolderObjects(dir, index++, dn.Prefab, dn.yPos, dn.txtNode);
+                                dn.SpawnFolderObjects(dir, index++, dn.Prefab, dn.yPos, dn.txtNode, dn.txtNodeDetailed);
 
                             // Spawn Files
                             foreach (var file in dirs.EnumerateFiles())
-                                dn.SpawnFileObjects(file, index++, dn.Prefab, dn.yPos, dn.txtNode);
+                                dn.SpawnFileObjects(file, index++, dn.Prefab, dn.yPos, dn.txtNode, dn.txtNodeDetailed);
 
                             if (this.dn.IsDrive)
                             {
@@ -73,6 +75,7 @@ public class Directories : MonoBehaviour
                                 cache.Prefab = dn.Prefab;
                                 cache.yPos = dn.yPos;
                                 cache.txtNode = dn.txtNode;
+                            cache.txtNodeDetailed = dn.txtNodeDetailed;
                                 cache.FullName = dn.FullName;
                                 cache.Name = dn.Name;
                             
@@ -101,6 +104,7 @@ public class Directories : MonoBehaviour
     {
         render.material.color = Color.magenta; // user has access
         txtNode.text = dn.Name;
+        txtNodeDetailed.text = "detailed";
     }
 
     // Destroys objects based on Y Position 
@@ -115,6 +119,8 @@ public class Directories : MonoBehaviour
         }
 
         GameObject navText = GameObject.Find("txtNode");
+        GameObject navTextDetailed = GameObject.Find("txtNodeDetailed");
+
         navText.GetComponent<TextMeshProUGUI>().text = ""; // reset nav text
     }
 
@@ -176,12 +182,12 @@ public class Directories : MonoBehaviour
             // Spawn Folders
             foreach (var dir in dirs.EnumerateDirectories())
                 getSpawner.SpawnFolderObjects(dir, index++, previous.Prefab, 
-                    previous.yPos, previous.txtNode);
+                    previous.yPos, previous.txtNode, previous.txtNodeDetailed);
 
             // Spawn Files
             foreach (var file in dirs.EnumerateFiles())
                 getSpawner.SpawnFileObjects(file, index++, previous.Prefab,
-                    previous.yPos, previous.txtNode);
+                    previous.yPos, previous.txtNode, previous.txtNodeDetailed);
 
             DestroyDirectory(previous.yPos);
         }

@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a176838e9b2238c43a12b3bc680aaf68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPos: {fileID: 0}
   txtNode: {fileID: 0}
+  txtNodeDetailed: {fileID: 0}
   txtName: {fileID: 0}
   detailed: 0

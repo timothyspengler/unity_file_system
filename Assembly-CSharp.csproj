@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Assets\Cache.cs" />
     <Compile Include="Assets\DataNode.cs" />
-    <Compile Include="Assets\DetailNavPanel.cs" />
     <Compile Include="Assets\Directories.cs" />
     <Compile Include="Assets\MoveCamera.cs" />
     <Compile Include="Assets\spawner.cs" />

@@ -75,7 +75,7 @@ public class Directories : MonoBehaviour
                                 cache.Prefab = dn.Prefab;
                                 cache.yPos = dn.yPos;
                                 cache.txtNode = dn.txtNode;
-                                cache.txtNodeDetailed = dn.txtNodeDetailed;
+                            cache.txtNodeDetailed = dn.txtNodeDetailed;
                                 cache.FullName = dn.FullName;
                                 cache.Name = dn.Name;
                             
@@ -163,7 +163,7 @@ public class Directories : MonoBehaviour
         }
 
         //txtNode.text = ""; // reset text display 
-        //ResetMainCamera();
+        ResetMainCamera();
     }
 
     // Goes back to previous directory. Utilized by Step-Back Button
@@ -215,6 +215,16 @@ public class Directories : MonoBehaviour
         }
     }
 
+
+    public void ResetMainCamera() 
+    {
+        GameObject getCamera = GameObject.Find("Main Camera");
+        Vector3 cameraPosition = GameObject.Find("Cache").GetComponent<Cache>().GetCameraObject();
+        
+        // float totalDistance = cameraPosition.x - getCamera.transform.position.x;
+        getCamera.transform.rotation = Quaternion.Euler(15, 0, 0);
+        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position,cameraPosition, 1.0f);
+    }
 
     // Slices String to previous forward slash
     private string FormatDirectoryName(string name) 

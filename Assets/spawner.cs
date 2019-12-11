@@ -18,14 +18,15 @@ using TMPro;
 using System.Security.AccessControl;
 
 
-public class spawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     public GameObject[] whatToSpawnPrefab; // Set in Unity IDE
     public Transform spawnPos;  // position of object
     public TextMeshProUGUI txtNode;
+    public TextMeshProUGUI txtNodeDetailed;
 
     // Variables for Platform Dimensions 
-    public float myXPos;    // tracks X position when spawning
+    float myXPos;    // tracks X position when spawning
     float staticX;          // set in SetSpawnDimensions
     float myZPos;           // tracks Y position when spawning
     float maxLength;        // set in SetSpawnDimensions
@@ -71,12 +72,13 @@ public class spawner : MonoBehaviour
         dn.yPos = y;
         dn.UserHasAccess = true;
         dn.txtNode = txtNode;
+        dn.txtNodeDetailed = txtNodeDetailed;
+        dn.IsDrive = true;
     }
 
     // Sets and spawns all folder game objects
-    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) 
-    {
-      
+    public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName, TextMeshProUGUI txtNameDetailed) 
+    {  
         int y = ToggleY(oldY);
         var gObj =Instantiate(Prefab[1], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
       
@@ -101,12 +103,13 @@ public class spawner : MonoBehaviour
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.txtNodeDetailed = txtNameDetailed;
         dn.DateCreated = dir.CreationTime;
         dn.LastModified = dir.LastWriteTime;
     }
 
     // Sets and spawns all file game objects
-    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName) {
+    public void SpawnFileObjects(FileInfo file, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName, TextMeshProUGUI txtNameDetailed) {
         int y = ToggleY(oldY);
         var gObj = Instantiate(Prefab[0], new Vector3(myXPos, y, myZPos), spawnPos.rotation) as GameObject;
     
@@ -133,6 +136,7 @@ public class spawner : MonoBehaviour
         dn.Prefab = Prefab;
         dn.UserHasAccess = true;
         dn.txtNode = txtName;
+        dn.txtNodeDetailed = txtNameDetailed;
         dn.DateCreated = file.CreationTime;
         dn.LastModified = file.LastWriteTime;
     }
@@ -150,8 +154,9 @@ public class spawner : MonoBehaviour
         myZPos = (x / -2) ;      
 
         GameObject getCamera = GameObject.Find("Main Camera");
-        Vector3 cameraPosition = new Vector3(x / 1.5f, 8, -12); // adjust camera
-        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
+        Vector3 cameraPosition = new Vector3(x / 1.5f, (8 * 1.2f), (-12 - x)); // adjust camera
+        getCamera.transform.position = cameraPosition;
+        //Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
         GameObject.Find("Cache").GetComponent<Cache>().SetCameraPosition(cameraPosition);
     }
 

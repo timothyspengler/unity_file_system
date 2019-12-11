@@ -199,11 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a176838e9b2238c43a12b3bc680aaf68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPos: {fileID: 0}
   txtNode: {fileID: 0}
+  txtNodeDetailed: {fileID: 0}
   txtName: {fileID: 0}
   detailed: 0
-  dn: {fileID: 0}
 --- !u!114 &5600942525302354611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +218,7 @@ MonoBehaviour:
   whatToSpawnPrefab: []
   spawnPos: {fileID: 0}
   txtNode: {fileID: 0}
+  txtNodeDetailed: {fileID: 0}
   myXPos: 0
   Name: 
   FullName: 
@@ -229,6 +229,4 @@ MonoBehaviour:
   IsExpanded: 0
   Prefab: []
   yPos: 0
-  PrevDirectory: 
   UserHasAccess: 0
-  Spawn: {fileID: 0}

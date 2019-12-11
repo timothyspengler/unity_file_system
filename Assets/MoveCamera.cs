@@ -6,10 +6,12 @@ public class MoveCamera : MonoBehaviour
 {
     // how fast you move
     private int movementspeed;
+    GameObject mainCamera;
 
     void Start() 
     {
         movementspeed = 25;
+        mainCamera = GameObject.Find("Main Camera");
     }
 
     void Update() 
@@ -53,5 +55,16 @@ public class MoveCamera : MonoBehaviour
         // rotate upward
         if (Input.GetKey(KeyCode.D))
             transform.RotateAround(transform.position, Vector3.left, Time.deltaTime * -90f);
+    }
+
+    public void CallLerp(Vector3 endPosition)
+    {
+        Vector3 cameraPosition = mainCamera.transform.position;
+        //GameObject.Find("Cache").GetComponent<Cache>().GetCameraObject();
+        Debug.Log(cameraPosition);
+        Debug.Log(endPosition);
+        //Vector3 pos = cache.GetComponent<Cache>().GetCameraObject();
+
+        mainCamera.transform.position = Vector3.MoveTowards(cameraPosition, endPosition, Time.deltaTime * .001f);
     }
 }

@@ -154,8 +154,9 @@ public class Spawner : MonoBehaviour
         myZPos = (x / -2) ;      
 
         GameObject getCamera = GameObject.Find("Main Camera");
-        Vector3 cameraPosition = new Vector3(x / 1.5f, 8, -12); // adjust camera
-        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
+        Vector3 cameraPosition = new Vector3(x / 1.5f, (8 * 1.2f), (-12 - x)); // adjust camera
+        getCamera.transform.position = cameraPosition;
+        //Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
         GameObject.Find("Cache").GetComponent<Cache>().SetCameraPosition(cameraPosition);
     }
 

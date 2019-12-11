@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cache : DataNode
 {
-    Vector3 CameraPosition;
+    public Vector3 CameraPosition;
 
     // Start is called before the first frame update
     new void Start()

@@ -49,6 +49,8 @@ public class Directories : MonoBehaviour
                     {
                         try 
                         {
+                            GameObject.Find("Main Camera").GetComponent<MoveCamera>().CallLerp(this.dn.transform.position);
+
                             DirectoryInfo dirs = new DirectoryInfo(dn.FullName);
                             int totalItems = dirs.GetDirectories().Length + dirs.GetFiles().Length;
 

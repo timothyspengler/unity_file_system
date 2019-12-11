@@ -17,7 +17,6 @@ public class Directories : MonoBehaviour
     public TextMeshProUGUI txtNode;
     public TextMeshProUGUI txtNodeDetailed;
     public Text txtName;
-    public bool detailed;
 
     DataNode dn;
     DataNode cache; // saves previous directory in case we get lost (empty directory)
@@ -32,7 +31,6 @@ public class Directories : MonoBehaviour
         txtNodeDetailed = dn.txtNodeDetailed;
         cache = GameObject.Find("Cache").GetComponent<DataNode>();
         driveCache = GameObject.Find("DriveCache").GetComponent<DataNode>();
-        detailed = false;
     }
 
     // Update is called once per frame
@@ -65,22 +63,18 @@ public class Directories : MonoBehaviour
                             foreach (var file in dirs.EnumerateFiles())
                                 dn.SpawnFileObjects(file, index++, dn.Prefab, dn.yPos, dn.txtNode, dn.txtNodeDetailed);
 
+                            // Cache original drive
                             if (this.dn.IsDrive)
-                            {
                                 driveCache.FullName = dn.FullName;
-                            }
                             
-                       
-                                // Cache previous directory
-                                cache.Prefab = dn.Prefab;
-                                cache.yPos = dn.yPos;
-                                cache.txtNode = dn.txtNode;
+                            // Cache previous directory
+                            cache.Prefab = dn.Prefab;
+                            cache.yPos = dn.yPos;
+                            cache.txtNode = dn.txtNode;
                             cache.txtNodeDetailed = dn.txtNodeDetailed;
-                                cache.FullName = dn.FullName;
-                                cache.Name = dn.Name;
+                            cache.FullName = dn.FullName;
+                            cache.Name = dn.Name;
                             
-                     
-
                             GameObject directTxt = GameObject.Find("DirectoryText");
                             directTxt.GetComponent<TextMeshProUGUI>().text = "Location: " + dn.Name;
 
@@ -108,17 +102,17 @@ public class Directories : MonoBehaviour
         if(dn.IsDrive)
         {
             txtNodeDetailed.text = "Type: Drive"  + "\n"
-           + "Location:" + dn.FullName + "\n"
-           + "Size:" + dn.Size + "\n"
+           + "Location: " + dn.FullName + "\n"
+           + "Size: " + (dn.Size / 1000000000 ) + "gb\n"
          ;
         }
         else
         {
             String type = (dn.IsFolder ? "Folder" : "File");
-            txtNodeDetailed.text = "Type: " + type + "\n"
-                + "Location: " + dn.FullName + "\n"
-                + "Size: " + dn.Size + "\n"
-                + "Created: " + dn.DateCreated + "\n"
+            txtNodeDetailed.text = "Type: " + type + "\n\n"
+                + "Location: " + dn.FullName + "\n\n"
+                + "Size: " + dn.Size + "kb \n\n"
+                + "Created: " + dn.DateCreated + "\n\n"
                 + "Modified: " + dn.LastModified
               ;
         }
@@ -145,9 +139,8 @@ public class Directories : MonoBehaviour
     // Reset back to Drive Directory. Utilized by Home Button
     public void SpawnHomeDirectory() 
     {
-        spawner getSpawner = GameObject.Find("Spawner").GetComponent<spawner>();
+        Spawner getSpawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         GameObject directTxt = GameObject.Find("DirectoryText");
-        directTxt.GetComponent<TextMeshProUGUI>().text = ""; // reset location text
 
         DestroyDirectory(1); // y-axis = 1
         DestroyDirectory(2); // y-axis = 2
@@ -161,16 +154,15 @@ public class Directories : MonoBehaviour
             if (drive.Name != "F:\\")
                 getSpawner.SpawnDriveObjects(drive, track++);
         }
+        directTxt.GetComponent<TextMeshProUGUI>().text = "Location: Home Directory"; // reset location text
 
-        //txtNode.text = ""; // reset text display 
-        ResetMainCamera();
     }
 
     // Goes back to previous directory. Utilized by Step-Back Button
     public void GoBackDirectory() 
     {
         string newDirectory;
-        spawner getSpawner = GameObject.Find("Spawner").GetComponent<spawner>();
+        Spawner getSpawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         GameObject[] gObj = GameObject.FindGameObjectsWithTag("Player"); // get objects
         DataNode previous;
 
@@ -210,20 +202,7 @@ public class Directories : MonoBehaviour
             DestroyDirectory(previous.yPos);
         }
         else 
-        {
             SpawnHomeDirectory();
-        }
-    }
-
-
-    public void ResetMainCamera() 
-    {
-        GameObject getCamera = GameObject.Find("Main Camera");
-        Vector3 cameraPosition = GameObject.Find("Cache").GetComponent<Cache>().GetCameraObject();
-        
-        // float totalDistance = cameraPosition.x - getCamera.transform.position.x;
-        getCamera.transform.rotation = Quaternion.Euler(15, 0, 0);
-        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position,cameraPosition, 1.0f);
     }
 
     // Slices String to previous forward slash
@@ -249,7 +228,7 @@ public class Directories : MonoBehaviour
 
             return name;
         }
-        catch (ArgumentOutOfRangeException) // its a mac computer
+        catch (ArgumentOutOfRangeException) // its a linux system
         {
             string Drivecache = GameObject.Find("DriveCache").GetComponent<DataNode>().FullName;
 
@@ -272,16 +251,13 @@ public class Directories : MonoBehaviour
                 return name;
             }
             else
-            {
                 return "";
-            }
         }
     }
 
     // only have to go back one slash from empty directory
     private string EmptyDirectoryStepBackName(string name) 
     {
-
         try //assume its windows
         {
             int index = name.LastIndexOf(@"\");
@@ -293,7 +269,7 @@ public class Directories : MonoBehaviour
 
             return name;
         }
-        catch (ArgumentOutOfRangeException) // its a mac
+        catch (ArgumentOutOfRangeException) // its a linux system
         {
             string Drivecache = GameObject.Find("DriveCache").GetComponent<DataNode>().FullName;
 
@@ -308,10 +284,7 @@ public class Directories : MonoBehaviour
                 return name;
             }
             else
-            {
                 return "";
-            }
-        
         }
         
     }

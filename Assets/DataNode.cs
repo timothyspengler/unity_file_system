@@ -6,7 +6,7 @@
 using UnityEngine;
 using System;
 
-public class DataNode : spawner
+public class DataNode : Spawner
 {
     public string Name;
     public string FullName;

@@ -18,16 +18,15 @@ using TMPro;
 using System.Security.AccessControl;
 
 
-public class spawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     public GameObject[] whatToSpawnPrefab; // Set in Unity IDE
     public Transform spawnPos;  // position of object
     public TextMeshProUGUI txtNode;
     public TextMeshProUGUI txtNodeDetailed;
 
-
     // Variables for Platform Dimensions 
-    public float myXPos;    // tracks X position when spawning
+    float myXPos;    // tracks X position when spawning
     float staticX;          // set in SetSpawnDimensions
     float myZPos;           // tracks Y position when spawning
     float maxLength;        // set in SetSpawnDimensions
@@ -79,8 +78,7 @@ public class spawner : MonoBehaviour
 
     // Sets and spawns all folder game objects
     public void SpawnFolderObjects(DirectoryInfo dir, int index, GameObject[] Prefab, int oldY, TextMeshProUGUI txtName, TextMeshProUGUI txtNameDetailed) 
-    {
-      
+    {  
         int y = ToggleY(oldY);
         var gObj =Instantiate(Prefab[1], new Vector3(myXPos, y, myZPos), spawnPos.rotation);
       

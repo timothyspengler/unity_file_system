@@ -54,4 +54,13 @@ public class MoveCamera : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             transform.RotateAround(transform.position, Vector3.left, Time.deltaTime * -90f);
     }
+
+    public void ResetMainCamera() {
+        GameObject getCamera = GameObject.Find("Main Camera");
+        Vector3 cameraPosition = GameObject.Find("Cache").GetComponent<Cache>().GetCameraObject();
+
+        // float totalDistance = cameraPosition.x - getCamera.transform.position.x;
+        getCamera.transform.rotation = Quaternion.Euler(15, 0, 0);
+        getCamera.transform.position = Vector3.Lerp(getCamera.transform.position, cameraPosition, 1.0f);
+    }
 }
